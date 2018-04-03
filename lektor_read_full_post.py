@@ -30,7 +30,7 @@ class ReadFullPostPlugin(Plugin):
 
     def on_setup_env(self, **extra):
         ReadFullPostPlugin.link_text = self.get_config().get('link-text')
-        ReadFullPostPlugin.always_display = self.get_config().get('always-display')
+        ReadFullPostPlugin.always_display = self.get_config().get('always-display').lower()
 
         self.env.jinja_env.globals.update(
             plugin_read_full_post=self.plugin_read_full_post
