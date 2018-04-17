@@ -1,4 +1,5 @@
 # lektor-read-full-post
+
 Allows blog listing posts to be shortened with a link to the full post.
 
 ## Install
@@ -7,30 +8,38 @@ Allows blog listing posts to be shortened with a link to the full post.
 
 ## How to Use
 
-Add the following split text to your blog post `[//]: # (PLUGIN-READ-FULL-POST)`  
-Only text above this line appears on the blog listing page.  
+Add the `split-text` to a blog post. It must be at the start of a line and be the only text on the line.  
+Only text above that line appears on the blog listing page.  
 All text appears on the post's dedicated page.   
 
-## Setup
+On the blog listing page, the post will end with the `link-text`, to the full post.
 
-### Config
+These options can be customized per post body type.
+
+## Config
 
 Create `configs/read-full-post.ini`
 
+This is a full example config
 ```
-link-text = Read Full Post
-always-display = True
+always-display = false
+markdown-link-text = <br><br>[Read Full Post]({URL_PATH})
+markdown-split-text = [//]: # (PLUGIN-READ-FULL-POST)
+html-link-text = <br><br><a href="{URL_PATH}">Read Full Post</a>
+html-split-text = <!-- PLUGIN-READ-FULL-POST -->
 ```
 
-`link-text` : The URL text to the blog post.  
-`always-display` : If `True`, always display the Read Full Post link. If `False`, only display link if blog post has 
-split text.  
+`split-text`: The text to split the blog post on.  
+`link-text` : The code to link to the full post.  
+`always-display` : If `True`, always display the `link-text`. If `False`, only display if blog post contains the `split-text`  
 
-Note: To add some new lines you can add `<br>` tags in `link-text` eg `link-text = <br><br>Read Full Post`
+Notice how the configs exist for `html` and `markdown`.  
+If the post body type is `markdown`, the `markdown` option is chosen. Same applies for `html`.  
+This is detected automatically so if you have another type eg `rst` you can add it.  
 
-### Modify Templates
+## Modify Templates
 
-#### blog.html
+### blog.html
 
 This is a full sample of a `blog.html` template  
 This new line is required `{% set child = plugin_read_full_post(child) %}`  
@@ -52,7 +61,7 @@ It must come before `render_blog_post`.
 {% endblock %}
 ```
 
-#### macros/blog.html
+### macros/blog.html
 
 Below are two blocks of template code.  
 The first block is the required changes.  
@@ -99,4 +108,4 @@ The second block is a full sample of `macros/blog.html` for reference.
 The `post.body` is `deepcopy` to `post.body_short`.  
 The blog text is `split()` on the split text.  
 Index `0` of the `split()` is used on the blog listing page.  
-The original `post.body` is used on the dedicated post's page for the full post.   
+The original `post.body` becomes the join split. Therefore the `split-text` no longer exists.   
