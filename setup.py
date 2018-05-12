@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='lektor-read-full-post',
-    version='0.1',
+    version='0.2',
     author='Andrew Shay',
     url='https://andrewshay.me',
     license='MIT',
