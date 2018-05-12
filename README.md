@@ -29,9 +29,10 @@ html-link-text = <br><br><a href="{URL_PATH}">Read Full Post</a>
 html-split-text = <!-- PLUGIN-READ-FULL-POST -->
 ```
 
-`split-text`: The text to split the blog post on.  
+`split-text` : The text to split the blog post on.  
 `link-text` : The code to link to the full post.  
 `always-display` : If `True`, always display the `link-text`. If `False`, only display if blog post contains the `split-text`  
+`{URL_PATH}`: Will be replaced with the absolute URL to the full post.
 
 Notice how the configs exist for `html` and `markdown`.  
 If the post body type is `markdown`, the `markdown` option is chosen. Same applies for `html`.  
